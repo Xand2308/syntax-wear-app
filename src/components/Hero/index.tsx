@@ -16,11 +16,15 @@ export const Hero = () => {
             <h2 className="text-xl font-medium leading-normal tracking-wider mb-2.5">
               Krypton One
             </h2>
-            <h1 className="text-2xl leading-9 tracking-widest mb-10">Transforme qualquer passo em presença</h1>
+            <h1 className="text-2xl leading-9 tracking-widest mb-10">
+              Transforme qualquer passo em presença
+            </h1>
 
             <div className="flex gap-3.5">
-            <Button variant="secondary" size="sm">Ver Modelos</Button>
-            <Button>Comprar</Button>
+              <Button variant="secondary" size="sm">
+                Ver Modelos
+              </Button>
+              <Button>Comprar</Button>
             </div>
           </div>
         </div>
