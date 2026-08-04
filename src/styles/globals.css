@@ -45,13 +45,26 @@
 @utility container {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 10px
+  padding: 0 10px;
+}
+
+/* Gallery Grid Layout */
+section[style*="gridTemplateAreas"] {
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows: repeat(5, auto) !important;
+    grid-template-areas:
+      "highlight highlight"
+      "sneaker-white sneaker-white"
+      "model sneaker-color"
+      "model sneaker-silver"
+      "sneaker-purple sneaker-purple" !important;
+  }
 }
 
 body {
   font-family: var(--font-display);
 }
-
 
 /* Esconde scrollbar no chrome, Safari e Edge */
 .scrollbar-hide::-webkit-scrollbar {
