@@ -65,6 +65,7 @@ section[style*="gridTemplateAreas"] {
 body {
   font-family: var(--font-display);
   color: #ffffff;
+  background-color: var(--color-surface);
 }
 
 /* Esconde scrollbar no chrome, Safari e Edge */
