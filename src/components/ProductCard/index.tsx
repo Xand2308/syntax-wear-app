@@ -1,15 +1,23 @@
 import { Link } from "@tanstack/react-router";
-import type { Product } from "../interfaces/product";
+import type { Product } from "../../interfaces/product";
 import { MdAddShoppingCart } from "react-icons/md";
+import { useContext } from "react";
+import { CartContext } from "../../contexts/CartContext";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
+
+  const { addToCart } = useContext(CartContext)
+
   return (
     <div className="bg-white rounded-2xl shadow-md">
-      <Link to="/products/$productId" params={{ productId: String(product.id)}}>
+      <Link
+        to="/products/$productId"
+        params={{ productId: String(product.id) }}
+      >
         <img
           className="w-full max-h-400px object-cover rounded-md mb-2"
           src={product.image}
@@ -24,7 +32,15 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <div className="flex justify-between mt-2.5">
           <p className="font-bold">R${product.price},00</p>
 
-          <button className="cursor-pointer">
+          <button
+            className="cursor-pointer hover:text-[#5433EB] transition-colors"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              addToCart(product);
+            }}
+            title="Adicionar ao carrinho"
+          >
             <MdAddShoppingCart className="h-7 w-7" />
           </button>
         </div>

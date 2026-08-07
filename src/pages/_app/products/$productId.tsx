@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useContext } from "react";
 import { products } from "../../../mocks/products";
 import { formatCurrency } from "../../../utils/format-currency";
+import { CartContext } from "../../../contexts/CartContext";
 
 export const Route = createFileRoute("/_app/products/$productId")({
   component: RouteComponent,
@@ -8,10 +10,14 @@ export const Route = createFileRoute("/_app/products/$productId")({
 
 function RouteComponent() {
   const { productId } = Route.useParams();
+  const { addToCart } = useContext(CartContext);
 
   const filteredProduct = products.find(
     (product) => product.id === Number(productId),
   );
+
+  if(!filteredProduct) return;
+
   const originalPrice = filteredProduct?.price ?? 0;
   // 1.0 = 100% do valor
   // 0.9 = 90% do valor
@@ -60,7 +66,7 @@ function RouteComponent() {
           <div className="mb-3">
             <p className="text-sm ">Calcular o prazo de entrega</p>
 
-            <form className="flex gap-3">
+            <form className="flex gap-3" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="text"
                 placeholder="Insira seu CEP"
@@ -73,7 +79,14 @@ function RouteComponent() {
             </form>
           </div>
 
-          <button className="bg-black text-white rounded-md p-5 w-full cursor-pointer hover:bg-gray-800">
+          <button
+            className="bg-black text-white rounded-md p-5 w-full cursor-pointer hover:bg-gray-800 font-bold transition-colors"
+            onClick={() => {
+              if (filteredProduct) {
+                addToCart(filteredProduct);
+              }
+            }}
+          >
             Adicionar ao carrinho
           </button>
         </div>
