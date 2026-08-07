@@ -18,7 +18,7 @@ export const ShoppingCart = () => {
       >
         <img src={IconCart} alt="Ícone carrinho de compras" />
         {totalQuantity > 0 && (
-          <span className="absolute -top-2 -right-2 bg-[#5433EB] text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+          <span className="absolute -top-2 -right-3 bg-red-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
             {totalQuantity}
           </span>
         )}
@@ -36,7 +36,7 @@ export const ShoppingCart = () => {
         >
           <header className="flex items-center justify-between px-5 pb-4 border-b border-gray-200">
             <p className="text-2xl font-bold">Carrinho 🛒 ({cart.length})</p>
-            <button className="text-xl font-bold cursor-pointer hover:text-gray-600" onClick={() => setCartIsOpen(!cartIsOpen)}>X</button>
+            <button className="text-xl font-bold cursor-pointer hover:text-gray-600" onClick={() => setCartIsOpen(!cartIsOpen)}>x</button>
           </header>
 
           <ul className="p-4 overflow-y-auto scrollbar-hide flex-1 flex flex-col gap-3">
@@ -51,7 +51,7 @@ export const ShoppingCart = () => {
                   <button
                     className="self-end text-xs text-gray-400 hover:text-red-500 cursor-pointer font-bold"
                     onClick={() => removeFromCart(product.id)}
-                  >X</button>
+                  >x</button>
 
                   <div className="flex gap-4">
                     <img src={product.image} alt={product.name} className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-md"/>
