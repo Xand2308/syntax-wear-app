@@ -1,4 +1,4 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AuthContext,
   type Credentials,
@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setIsAuthenticated(true);
 
         console.log(data.user);
-
       } catch (error) {
         console.error("Erro ao buscar perfil do usuário:", error);
         setUser(null);
@@ -41,8 +40,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     fetchUserProfile();
   }, []);
-
-
 
   async function signIn(credentials: Credentials): Promise<void> {
     const response = await fetch("http://localhost:3000/auth/login", {
@@ -65,9 +62,38 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   async function register(data: RegisterImput): Promise<void> {}
 
-  function signOut(): void {
-    setUser(null);
-    setIsAuthenticated(false);
+  async function signOut(): Promise<void> {
+    try {
+      await fetch("http://localhost:3000/auth/signout", {
+        method: "POST",
+        credentials: "include", //Faz com que os cookies sejam enviados junto com a requisição
+      });
+
+      setUser(null);
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.error("Erro ao fazer logout:", error);
+    }
+  }
+
+  async function signInWithGoogle(credential: string): Promise<void> {
+    const response = await fetch("http://localhost:3000/auth/google", {
+      method: "POST",
+      credentials: "include", //Faz que os cookies sejam enviados junto com a requisição
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ credential }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.user) {
+      throw new Error(result.message || " Erro ao fazer login com Google");
+    }
+
+    setUser(result.user);
+    setIsAuthenticated(true);
   }
 
   const value = {
@@ -76,6 +102,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     signIn,
     register,
     signOut,
+    signInWithGoogle,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
