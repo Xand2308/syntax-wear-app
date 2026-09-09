@@ -1,5 +1,5 @@
 import IconMenu from "@/assets/images/icone-menu.png";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link} from "@tanstack/react-router";
 import { useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 
@@ -50,7 +50,7 @@ export const MenuMobile = ({ navLinks }: MenuMobileProps) => {
                 <FaRegUserCircle className="h-6 w-6" />
 
                 {isAuthenticated ? (
-                  <p>Olá, {user?.firstname}</p>
+                  <p>Olá, {user?.firstName}</p>
                 ) : (
                   <p>Olá! Faça seu login</p>
                 )}

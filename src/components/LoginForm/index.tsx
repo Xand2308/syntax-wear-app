@@ -1,4 +1,4 @@
-import { promise, z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
@@ -32,7 +32,6 @@ export const LoginForm = () => {
   const onSubmit = async (data: SignInFormData) => {
     setIsSubmitting(true);
 
-
     try {
       // Aqui você pode chamar a função de login do constexto de autenticação
       await signIn(data);
@@ -44,9 +43,8 @@ export const LoginForm = () => {
       } else {
         setError("Erro desconhecido ao fazer login");
       }
-
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   };
 
@@ -74,15 +72,17 @@ export const LoginForm = () => {
         <span className="text-red-500 text-sm">{errors.password.message}</span>
       )}
 
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="bg-[#212A2F] w-full p-3.5 rounded-[1px] cursor-pointer text-white cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+      >
+        {isSubmitting ? "Enviando..." : "continuar"}
+      </button>
+
       {error && (
         <span className="text-red-500 text-sm text-center">{error}</span>
       )}
-
-      <button type="submit"
-      disabled={isSubmitting}
-       className="bg-[#212A2F] w-full p-3.5 rounded-[1px] cursor-pointer text-white cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed">
-        {isSubmitting ? "Enviando..." : "continuar"}
-      </button>
     </form>
   );
 };

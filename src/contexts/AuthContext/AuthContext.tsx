@@ -3,12 +3,12 @@ import { createContext, useContext } from "react";
 export type User = {
   id: string;
   email: string;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   avatarUrl: string;
   phone: string;
   cpf: string;
-  birthdate: string;
+  birthDate: string;
 };
 
 export type Credentials = {
@@ -17,24 +17,24 @@ export type Credentials = {
 };
 
 export type RegisterImput = Credentials & {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   phone: string;
   cpf: string;
-  birthdate: string;
+  birthDate: string;
 };
 
 interface AuthContextType {
-    user: User | null;
-    isAuthenticated: boolean;
-    signIn: (credentials: Credentials) => Promise<void>;
-    register: (data: RegisterImput) => Promise<void>;
-    signOut: () => Promise<void>;
-    signInWithGoogle: (Credential: string) => Promise<void>;
+  user: User | null;
+  isAuthenticated: boolean;
+  signIn: (credentials: Credentials) => Promise<void>;
+  signUp: (data: RegisterImput) => Promise<void>;
+  signOut: () => Promise<void>;
+  signInWithGoogle: (Credential: string) => Promise<void>;
 }
 
 export const AuthContext = createContext({} as AuthContextType);
 
-export function useAuth(){
-    return useContext(AuthContext);
+export function useAuth() {
+  return useContext(AuthContext);
 }

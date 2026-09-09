@@ -23,18 +23,17 @@ export const registerUserFormSchema = z
       .string()
       .refine(
         (date) => !isNaN(Date.parse(date)),
-        "Data de nascimento inválida"
+        "Data de nascimento inválida",
       ),
 
-      phone: z.string().nonempty("Telefone é obrigatório")
+    phone: z.string().nonempty("Telefone é obrigatório"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "As senhas não coincidem",
     path: ["confirmPassword"],
   });
 
-
-type RegisterFormData = z.infer<typeof registerUserFormSchema>;
+export type RegisterFormData = z.infer<typeof registerUserFormSchema>;
 
 export const useRegisterForm = () => {
   const {
@@ -42,16 +41,15 @@ export const useRegisterForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
-    reset
+    reset,
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerUserFormSchema),
     mode: "onBlur",
     defaultValues: {
-        email: "",
-        password: "",
+      email: "",
+      password: "",
     },
     criteriaMode: "all",
-
   });
 
   return {
@@ -60,6 +58,6 @@ export const useRegisterForm = () => {
     errors,
     isSubmitting,
     setError,
-    reset
-  }
-}
+    reset,
+  };
+};
